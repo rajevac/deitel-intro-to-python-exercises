@@ -6,4 +6,5 @@ Here are the solutions for some exercises that can be found in Paul and Harvey D
 
 ## Repository Structure
 
-Folders are labeled and name the same as the chapters in the book. Each exercise in the folder starts with the number as it appears in the book.
+- Folders are named the same as the chapters in the book. 
+- Each exercise in the folder starts with the number as it appears in the book.
