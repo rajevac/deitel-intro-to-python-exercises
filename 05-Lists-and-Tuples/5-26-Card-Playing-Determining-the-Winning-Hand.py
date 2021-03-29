@@ -1,5 +1,11 @@
 import random
 
+enumerate_ranks = {'Deuce': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8,
+                   'Nine': 9, 'Ten': 10, 'Jack': 11, 'Queen': 12, 'King': 13, 'Ace': 14}
+
+enumerate_hand_categories = {'High Card': 1, 'One Pair': 2, 'Two Pair': 3, 'Three of a Kind': 4, 'Straight': 5,
+                             'Flush': 6, 'Full House': 7, 'Four of a kind': 8, 'Straight Flush': 9}
+
 
 def initialize_deck():
     suits = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
@@ -28,13 +34,6 @@ def deal_cards(deck):
         idx += 1
 
     return hand_1, hand_2
-
-
-enumerate_ranks = {'Deuce': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8,
-                   'Nine': 9, 'Ten': 10, 'Jack': 11, 'Queen': 12, 'King': 13, 'Ace': 14}
-
-enumerate_hand_categories = {'High Card': 1, 'One Pair': 2, 'Two Pair': 3, 'Three of a Kind': 4, 'Straight': 5,
-                             'Flush': 6, 'Full House': 7, 'Four of a kind': 8, 'Straight Flush': 9}
 
 
 def hand_count(hand):
@@ -100,7 +99,41 @@ def sort_ranks(h1, h2):
     return p1, p2
 
 
+def find_a_winner(p1, p2):
+    i = 0
+    while i < len(p1):
+        if p1[i] > p2[i]:
+            return 'Player 1 wins'
+        elif p1[i] < p2[i]:
+            return 'Player 2 wins'
+        elif i == len(p1) - 1:
+            return 'Draw'
+        i += 1
+
+
+def find_a_winner_three_four(p1, p2, num):
+    pair_1 = 0
+    pair_2 = 0
+
+    for key, value in p1.items():
+        if value == num:
+            pair_1 = enumerate_ranks[key]
+
+    for key, value in p2.items():
+        if value == num:
+            pair_2 = enumerate_ranks[key]
+
+    if pair_1 > pair_2:
+        return 'Player 1 wins'
+    else:
+        return 'Player 2 wins'
+
+
 def who_has_higher_hand(player_1_hand, player_2_hand, hand_rank):
+    '''
+    This function is called when players has the same poker hand category, for example
+    both players have 'Three of a Kind' and we still have to determine who has the higher hand.
+    '''
 
     if hand_rank == 'High Card':
         # sort hands in list and compare last list items
@@ -108,16 +141,7 @@ def who_has_higher_hand(player_1_hand, player_2_hand, hand_rank):
         # if player 1 > player 2 print player 1 wins else player 2 wins
 
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
-
-        i = 0
-        while i < len(p1):
-            if p1[i] > p2[i]:
-                return 'Player 1 wins'
-            elif p1[i] < p2[i]:
-                return 'Player 2 wins'
-            elif i == len(p1) - 1:
-                return 'Draw'
-            i += 1
+        return find_a_winner(p1, p2)
 
     elif hand_rank == 'One Pair':
         # get a key with value 2
@@ -143,19 +167,9 @@ def who_has_higher_hand(player_1_hand, player_2_hand, hand_rank):
         elif pair_1 < pair_2:
             return 'Player 2 wins'
         else:
-
+            # SAME AS HIGH CARD
             p1, p2 = sort_ranks(player_1_hand, player_2_hand)
-
-            i = 0
-            print(len(p1))
-            while i < len(p1):
-                if p1[i] > p2[i]:
-                    return 'Player 1 wins'
-                elif p1[i] < p2[i]:
-                    return 'Player 2 wins'
-                elif i == len(p1) - 1:
-                    return 'Draw'
-                i += 1
+            return find_a_winner(p1, p2)
 
     elif hand_rank == 'Two Pair':
         # get a key with value 2 and put them in the sorted list
@@ -177,8 +191,8 @@ def who_has_higher_hand(player_1_hand, player_2_hand, hand_rank):
             if value == 2:
                 pair_2.append(enumerate_ranks[key])
 
-        pair_1.sort()
-        pair_2.sort()
+        pair_1.sort(reverse=True)
+        pair_2.sort(reverse=True)
 
         i = 0
         while i < len(pair_1):
@@ -189,126 +203,38 @@ def who_has_higher_hand(player_1_hand, player_2_hand, hand_rank):
 
             i += 1
 
+        # SAME AS HIGH CARD
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
-
-        i = 0
-        while i < len(p1):
-            if p1[i] > p2[i]:
-                return 'Player 1 wins'
-            elif p1[i] < p2[i]:
-                return 'Player 2 wins'
-            elif i == len(p1) - 1:
-                return 'Draw'
-            i += 1
+        return find_a_winner(p1, p2)
 
     elif hand_rank == 'Three of a Kind':
         # get keys with value 3
         # if player 1 > player 2 print player 1 wins else player 2 wins
-        pair_1 = 0
-        pair_2 = 0
-
-        for key, value in player_1_hand.items():
-            if value == 3:
-                pair_1 = enumerate_ranks[key]
-
-        for key, value in player_2_hand.items():
-            if value == 3:
-                pair_2 = enumerate_ranks[key]
-
-        if pair_1 > pair_2:
-            return 'Player 1 wins'
-        else:
-            return 'Player 2 wins'
+        return find_a_winner_three_four(player_1_hand, player_2_hand, 3)
 
     elif hand_rank == 'Straight':
         # SAME AS HIGH CARD
-        # sort hands in list and compare last list items
-        # if they are the same print draw
-        # if player 1 > player 2 print player 1 wins else player 2 wins
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
-
-        i = 0
-        while i < len(p1):
-            if p1[i] > p2[i]:
-                return 'Player 1 wins'
-            elif p1[i] < p2[i]:
-                return 'Player 2 wins'
-            elif i == len(p1) - 1:
-                return 'Draw'
-            i += 1
+        return find_a_winner(p1, p2)
 
     elif hand_rank == 'Flush':
         # SAME AS HIGH CARD
-        # sort hands in list and compare last list items
-        # if they are the same print draw
-        # if player 1 > player 2 print player 1 wins else player 2 wins
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
-
-        i = 0
-        while i < len(p1):
-            if p1[i] > p2[i]:
-                return 'Player 1 wins'
-            elif p1[i] < p2[i]:
-                return 'Player 2 wins'
-            elif i == len(p1) - 1:
-                return 'Draw'
-            i += 1
+        return find_a_winner(p1, p2)
 
     elif hand_rank == 'Full House':
         # SAME AS THREE OF A KIND
-        # get keys with value 3
-        # if player 1 > player 2 print player 1 wins else player 2 wins
-        pair_1 = 0
-        pair_2 = 0
-
-        for key, value in player_1_hand.items():
-            if value == 3:
-                pair_1 = enumerate_ranks[key]
-
-        for key, value in player_2_hand.items():
-            if value == 3:
-                pair_2 = enumerate_ranks[key]
-
-        if pair_1 > pair_2:
-            return 'Player 1 wins'
-        else:
-            return 'Player 2 wins'
+        return find_a_winner_three_four(player_1_hand, player_2_hand, 3)
 
     elif hand_rank == 'Four of a Kind':
         # get keys with value 4
         # if player 1 > player 2 print player 1 wins else player 2 wins
-        pair_1 = 0
-        pair_2 = 0
-
-        for key, value in player_1_hand.items():
-            if value == 4:
-                pair_1 = enumerate_ranks[key]
-
-        for key, value in player_2_hand.items():
-            if value == 4:
-                pair_2 = enumerate_ranks[key]
-
-        if pair_1 > pair_2:
-            return 'Player 1 wins'
-        else:
-            return 'Player 2 wins'
+        return find_a_winner_three_four(player_1_hand, player_2_hand, 4)
 
     elif hand_rank == 'Straight Flush':
         # SAME AS HIGH CARD
-        # sort hands in list and compare last list items
-        # if they are the same print draw
-        # if player 1 > player 2 print player 1 wins else player 2 wins
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
-
-        i = 0
-        while i < len(p1):
-            if p1[i] > p2[i]:
-                return 'Player 1 wins'
-            elif p1[i] < p2[i]:
-                return 'Player 2 wins'
-            elif i == len(p1) - 1:
-                return 'Draw'
-            i += 1
+        return find_a_winner(p1, p2)
 
 
 def hand_category(hand):
