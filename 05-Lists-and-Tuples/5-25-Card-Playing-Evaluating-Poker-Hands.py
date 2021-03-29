@@ -114,21 +114,6 @@ def hand_category(hand):
 
     return 'Still figuring out'
 
-
-# ======= Testing ============
-
-# high_card = [('Three', 'Diamonds'), ('Four', 'Clubs'), ('King', 'Spades'), ('Nine', 'Clubs'), ('Seven', 'Clubs')]
-# one_pair = [('Three', 'Diamonds'), ('Four', 'Clubs'), ('King', 'Spades'), ('Three', 'Clubs'), ('Seven', 'Clubs')]
-# two_pair = [('Three', 'Diamonds'), ('Four', 'Clubs'), ('King', 'Spades'), ('Three', 'Clubs'), ('King', 'Clubs')]
-# three_of_a_kind = [('King', 'Diamonds'), ('Four', 'Clubs'), ('King', 'Spades'), ('Three', 'Clubs'), ('King', 'Clubs')]
-# straight = [('Ten', 'Diamonds'), ('Nine', 'Clubs'), ('Eight', 'Spades'), ('Seven', 'Clubs'), ('Six', 'Clubs')]
-# flush = [('Three', 'Diamonds'), ('Four', 'Diamonds'), ('King', 'Diamonds'), ('Nine', 'Diamonds'), ('Seven', 'Diamonds')]
-# full_house = [('King', 'Diamonds'), ('Three', 'Diamonds'), ('King', 'Spades'), ('Three', 'Clubs'), ('King', 'Clubs')]
-# four_of_a_kind = [('King', 'Diamonds'), ('Three', 'Diamonds'), ('King', 'Spades'), ('King', 'Hearts'),                  ('King', 'Clubs')]
-# straight_flush = [('Nine', 'Hearts'), ('Six', 'Hearts'), ('Ten', 'Hearts'), ('Seven', 'Hearts'), ('Eight', 'Hearts')]
-
-# ======== Testing end ========
-
 hand_1 = deal_cards(initialize_deck())
 
 print(hand_1)

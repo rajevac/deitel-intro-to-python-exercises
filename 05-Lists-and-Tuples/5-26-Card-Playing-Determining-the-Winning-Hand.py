@@ -349,39 +349,6 @@ def hand_category(hand):
     return 'Something went wrong, evaluation is not correct'
 
 
-# ======= Testing ============
-
-high_card_1 = [('Three', 'Diamonds'), ('Four', 'Clubs'), ('King', 'Spades'), ('Nine', 'Clubs'), ('Seven', 'Clubs')]
-high_card_2 = [('Three', 'Hearts'), ('Four', 'Hearts'), ('King', 'Diamonds'), ('Nine', 'Spades'), ('Seven', 'Diamonds')]
-
-one_pair_1 = [('Three', 'Diamonds'), ('Four', 'Clubs'), ('King', 'Spades'), ('Three', 'Clubs'), ('Seven', 'Clubs')]
-one_pair_2 = [('Three', 'Hearts'), ('Four', 'Hearts'), ('King', 'Diamonds'), ('Three', 'Spades'), ('Seven', 'Diamonds')]
-
-two_pair_1 = [('Three', 'Diamonds'), ('Five', 'Clubs'), ('King', 'Spades'), ('Three', 'Clubs'), ('King', 'Clubs')]
-two_pair_2 = [('Three', 'Hearts'), ('Five', 'Diamonds'), ('King', 'Hearts'), ('Three', 'Spades'), ('King', 'Diamonds')]
-
-three_of_a_kind_1 = [('King', 'Diamonds'), ('Four', 'Clubs'), ('King', 'Spades'), ('Three', 'Clubs'), ('King', 'Clubs')]
-three_of_a_kind_2 = [('Queen', 'Diamonds'), ('Four', 'Hearts'), ('Queen', 'Spades'), ('Three', 'Hearts'), ('Queen', 'Clubs')]
-
-straight_1 = [('Ten', 'Diamonds'), ('Nine', 'Clubs'), ('Eight', 'Spades'), ('Seven', 'Clubs'), ('Six', 'Clubs')]
-straight_2 = [('Ten', 'Hearts'), ('Nine', 'Spades'), ('Eight', 'Clubs'), ('Seven', 'Diamonds'), ('Six', 'Hearts')]
-
-flush_1 = [('Three', 'Diamonds'), ('Four', 'Diamonds'), ('King', 'Diamonds'), ('Nine', 'Diamonds'), ('Seven', 'Diamonds')]
-flush_2 = [('Three', 'Hearts'), ('Four', 'Hearts'), ('King', 'Hearts'), ('Nine', 'Hearts'), ('Seven', 'Hearts')]
-
-full_house_1 = [('King', 'Diamonds'), ('Three', 'Diamonds'), ('King', 'Spades'), ('Three', 'Clubs'), ('King', 'Clubs')]
-full_house_2 = [('Queen', 'Diamonds'), ('Four', 'Diamonds'), ('Queen', 'Spades'), ('Four', 'Clubs'), ('Queen', 'Clubs')]
-
-four_of_a_kind_1 = [('King', 'Diamonds'), ('Three', 'Diamonds'), ('King', 'Spades'), ('King', 'Hearts'), ('King', 'Clubs')]
-four_of_a_kind_2 = [('Queen', 'Diamonds'), ('Three', 'Spades'), ('Queen', 'Spades'), ('Queen', 'Hearts'), ('Queen', 'Clubs')]
-
-straight_flush_1 = [('Nine', 'Hearts'), ('Six', 'Hearts'), ('Ten', 'Hearts'), ('Seven', 'Hearts'), ('Eight', 'Hearts')]
-straight_flush_2 = [('Nine', 'Diamonds'), ('Six', 'Diamonds'), ('Ten', 'Diamonds'), ('Seven', 'Diamonds'), ('Eight', 'Diamonds')]
-
-# player_1 = straight_flush_1
-# player_2 = straight_flush_2
-# ======== Testing end ========
-
 player_1, player_2 = deal_cards(initialize_deck())
 
 print(f'Player 1 cards: {player_1}')
