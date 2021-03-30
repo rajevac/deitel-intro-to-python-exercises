@@ -27,15 +27,16 @@ def deal_cards(deck):
 enumerate_ranks = {'Deuce': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8,
                    'Nine': 9, 'Ten': 10, 'Jack': 11, 'Queen': 12, 'King': 13, 'Ace': 14}
 
-# Might be handy for solving 5.26 problem
-# enumerate_hand_categories = {'High Card': 1, 'One Pair': 2, 'Two Pair': 3, 'Three of a kind': 4, 'Straight': 5,
-#                             'Flush': 6, 'Full House': 7, 'Four of a kind': 8, 'Straight Flush': 9}
-
 
 def hand_count(hand):
-    # count suits (is there a flash in a hand)
-    # count how many times each rank is in the hand (eg. 'Deuce': 1, 'King': 2)
-    # return hand dictionary
+    '''
+    :param hand: tuple with cards dealt
+    :return: dictionary with cards in the hand
+    Loop through the list of cards in hand, count how many of the same rank
+    there is in the hand and return dictionary with rank name and how many times
+    each rank appears in the hand. In addition check if we have a Flush and return
+    dictionary. For example Full House {'King: 3, 'Four': 2, 'Flush': False}
+    '''
     ranks = []
     suits = []
     count_ranks_and_suits = {}
@@ -58,6 +59,12 @@ def hand_count(hand):
 
 
 def is_straight(ranks):
+    '''
+    :param ranks: dictionary with card in hand ranks
+    :return: boolean
+    For Flush in hand, sort card ranks and check if there is a
+    'Straight Flush' return True
+    '''
 
     ranks_as_integers = []
 
@@ -78,6 +85,12 @@ def is_straight(ranks):
 
 
 def hand_category(hand):
+    '''
+    :param hand: tuple with cards dealt
+    :return: hand category as a string
+    Dictionary length can be use to find hand category,
+    except for 'Straight Flush' and 'Flush'
+    '''
 
     hand_value = hand_count(hand)
 
@@ -113,6 +126,7 @@ def hand_category(hand):
         return 'Full House'
 
     return 'Still figuring out'
+
 
 hand_1 = deal_cards(initialize_deck())
 

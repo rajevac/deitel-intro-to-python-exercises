@@ -37,9 +37,15 @@ def deal_cards(deck):
 
 
 def hand_count(hand):
-    # count suits (is there a flash in a hand)
-    # count how many times each rank is in the hand (eg. 'Deuce': 1, 'King': 2)
-    # return hand dictionary
+    '''
+    :param hand: tuple with cards dealt
+    :return: dictionary with cards in the hand
+    Loop through the list of cards in hand, count how many of the same rank
+    there is in the hand and return dictionary with rank name and how many times
+    each rank appears in the hand. In addition check if we have a Flush and return
+    dictionary. For example Full House {'King: 3, 'Four': 2, 'Flush': False}
+    '''
+
     ranks = []
     suits = []
     count_ranks_and_suits = {}
@@ -62,6 +68,12 @@ def hand_count(hand):
 
 
 def is_straight(ranks):
+    '''
+    :param ranks: dictionary with card in hand ranks
+    :return: boolean
+    For Flush in hand, sort card ranks and check if there is a
+    'Straight Flush' return True
+    '''
 
     ranks_as_integers = []
 
@@ -82,6 +94,12 @@ def is_straight(ranks):
 
 
 def sort_ranks(h1, h2):
+    '''
+    :param h1: dictionary with cards in the hand
+    :param h2: dictionary with cards in the hand
+    :return: list with sorted card ranks for Player 1 and Player 2 eg. [14, 10, 7, 5, 2]
+    '''
+
     p1 = []
     p2 = []
 
@@ -100,6 +118,11 @@ def sort_ranks(h1, h2):
 
 
 def find_a_winner(p1, p2):
+    '''
+    :param p1: sorted list of card ranks
+    :param p2: sorted list of card ranks
+    :return: Poker winner as a string
+    '''
     i = 0
     while i < len(p1):
         if p1[i] > p2[i]:
@@ -112,6 +135,12 @@ def find_a_winner(p1, p2):
 
 
 def find_a_winner_three_four(p1, p2, num):
+    '''
+    :param p1: sorted list of card ranks
+    :param p2: sorted list of card ranks
+    :param num: integer: 3 if 'Three of a Kind' or 'Full House', 4 if 'Four of a Kind'
+    :return: Poker winner as a string
+    '''
     pair_1 = 0
     pair_2 = 0
 
@@ -129,27 +158,22 @@ def find_a_winner_three_four(p1, p2, num):
         return 'Player 2 wins'
 
 
-def who_has_higher_hand(player_1_hand, player_2_hand, hand_rank):
+def who_has_higher_hand(player_1_hand, player_2_hand, hand_cat):
     '''
-    This function is called when players has the same poker hand category, for example
+    :param player_1_hand: dictionary with cards in the hand
+    :param player_2_hand: dictionary with cards in the hand
+    :param hand_cat: hand category
+    :return: Winner as string: Player 1 or Player 2 or Draw
+
+    This function is called when players has the same hand category, for example
     both players have 'Three of a Kind' and we still have to determine who has the higher hand.
     '''
 
-    if hand_rank == 'High Card':
-        # sort hands in list and compare last list items
-        # if they are the same print draw
-        # if player 1 > player 2 print player 1 wins else player 2 wins
-
+    if hand_cat == 'High Card':
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
         return find_a_winner(p1, p2)
 
-    elif hand_rank == 'One Pair':
-        # get a key with value 2
-        # grater key wins
-        # if the same sort all key values
-        # compare -1 value if the same move to -2 and so on
-        # until you find the grates value
-        # if not print draw
+    elif hand_cat == 'One Pair':
 
         pair_1 = 0
         pair_2 = 0
@@ -167,19 +191,11 @@ def who_has_higher_hand(player_1_hand, player_2_hand, hand_rank):
         elif pair_1 < pair_2:
             return 'Player 2 wins'
         else:
-            # SAME AS HIGH CARD
             p1, p2 = sort_ranks(player_1_hand, player_2_hand)
             return find_a_winner(p1, p2)
 
-    elif hand_rank == 'Two Pair':
-        # get a key with value 2 and put them in the sorted list
-        # compare key -1
-        # grater key wins
-        # if the same compare key -2
-        # grater key wins
-        # if the same compare key 0
-        # grater key wins
-        # if the same print draw
+    elif hand_cat == 'Two Pair':
+
         pair_1 = []
         pair_2 = []
 
@@ -203,41 +219,38 @@ def who_has_higher_hand(player_1_hand, player_2_hand, hand_rank):
 
             i += 1
 
-        # SAME AS HIGH CARD
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
         return find_a_winner(p1, p2)
 
-    elif hand_rank == 'Three of a Kind':
-        # get keys with value 3
-        # if player 1 > player 2 print player 1 wins else player 2 wins
+    elif hand_cat == 'Three of a Kind':
         return find_a_winner_three_four(player_1_hand, player_2_hand, 3)
 
-    elif hand_rank == 'Straight':
-        # SAME AS HIGH CARD
+    elif hand_cat == 'Straight':
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
         return find_a_winner(p1, p2)
 
-    elif hand_rank == 'Flush':
-        # SAME AS HIGH CARD
+    elif hand_cat == 'Flush':
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
         return find_a_winner(p1, p2)
 
-    elif hand_rank == 'Full House':
-        # SAME AS THREE OF A KIND
+    elif hand_cat == 'Full House':
         return find_a_winner_three_four(player_1_hand, player_2_hand, 3)
 
-    elif hand_rank == 'Four of a Kind':
-        # get keys with value 4
-        # if player 1 > player 2 print player 1 wins else player 2 wins
+    elif hand_cat == 'Four of a Kind':
         return find_a_winner_three_four(player_1_hand, player_2_hand, 4)
 
-    elif hand_rank == 'Straight Flush':
-        # SAME AS HIGH CARD
+    elif hand_cat == 'Straight Flush':
         p1, p2 = sort_ranks(player_1_hand, player_2_hand)
         return find_a_winner(p1, p2)
 
 
 def hand_category(hand):
+    '''
+    :param hand: tuple with cards dealt
+    :return: hand category as a string
+    Dictionary length can be use to find hand category,
+    except for 'Straight Flush' and 'Flush'
+    '''
 
     hand_value = hand_count(hand)
 
@@ -275,15 +288,17 @@ def hand_category(hand):
     return 'Something went wrong, evaluation is not correct'
 
 
+# Deal cards, print card in hand, print hand category
 player_1, player_2 = deal_cards(initialize_deck())
 
 print(f'Player 1 cards: {player_1}')
 print(f'Player 2 cards: {player_2}')
 print('\n')
-print(f'Player 1 hand ranking: {hand_category(player_1)}')
-print(f'Player 2 hand ranking: {hand_category(player_2)}')
+print(f'Player 1 hand category: {hand_category(player_1)}')
+print(f'Player 2 hand category: {hand_category(player_2)}')
 print('\n')
 
+# Get hand category and find a winner
 player_1_category = hand_category(player_1)
 player_2_category = hand_category(player_2)
 
